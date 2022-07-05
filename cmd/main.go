@@ -1,111 +1,112 @@
 package main
 
 import (
-	"fmt"
+	"encoding/json"
+	"log"
 )
 
 type Ticket struct {
-	sector      string
-	row         int
-	seat_number int
+	Sector      string `json:"sector"`
+	Row         int    `json:"row"`
+	Seat_number int    `json:"seat_number"`
 }
 
 type Sector struct {
-	name    string
-	tickets []Ticket
+	Name    string   `json:"name"`
+	Tickets []Ticket `json:"tickets"`
 }
 
 func getTickets() []Ticket {
 	return []Ticket{
 		{
-			sector:      "A",
-			row:         1,
-			seat_number: 1,
+			Sector:      "A",
+			Row:         1,
+			Seat_number: 1,
 		},
 		{
-			sector:      "A",
-			row:         1,
-			seat_number: 2,
+			Sector:      "A",
+			Row:         1,
+			Seat_number: 2,
 		},
 		{
-			sector:      "A",
-			row:         1,
-			seat_number: 3,
+			Sector:      "A",
+			Row:         1,
+			Seat_number: 3,
 		},
 		{
-			sector:      "A",
-			row:         2,
-			seat_number: 1,
+			Sector:      "A",
+			Row:         2,
+			Seat_number: 1,
 		},
 		{
-			sector:      "A",
-			row:         2,
-			seat_number: 2,
+			Sector:      "A",
+			Row:         2,
+			Seat_number: 2,
 		},
 		{
-			sector:      "A",
-			row:         2,
-			seat_number: 3,
+			Sector:      "A",
+			Row:         2,
+			Seat_number: 3,
 		},
 		{
-			sector:      "B",
-			row:         1,
-			seat_number: 1,
+			Sector:      "B",
+			Row:         1,
+			Seat_number: 1,
 		},
 		{
-			sector:      "B",
-			row:         1,
-			seat_number: 2,
+			Sector:      "B",
+			Row:         1,
+			Seat_number: 2,
 		},
 		{
-			sector:      "B",
-			row:         1,
-			seat_number: 3,
+			Sector:      "B",
+			Row:         1,
+			Seat_number: 3,
 		},
 		{
-			sector:      "B",
-			row:         2,
-			seat_number: 1,
+			Sector:      "B",
+			Row:         2,
+			Seat_number: 1,
 		},
 		{
-			sector:      "B",
-			row:         2,
-			seat_number: 2,
+			Sector:      "B",
+			Row:         2,
+			Seat_number: 2,
 		},
 		{
-			sector:      "B",
-			row:         2,
-			seat_number: 3,
+			Sector:      "B",
+			Row:         2,
+			Seat_number: 3,
 		},
 		{
-			sector:      "C",
-			row:         1,
-			seat_number: 1,
+			Sector:      "C",
+			Row:         1,
+			Seat_number: 1,
 		},
 		{
-			sector:      "C",
-			row:         1,
-			seat_number: 2,
+			Sector:      "C",
+			Row:         1,
+			Seat_number: 2,
 		},
 		{
-			sector:      "C",
-			row:         1,
-			seat_number: 3,
+			Sector:      "C",
+			Row:         1,
+			Seat_number: 3,
 		},
 		{
-			sector:      "C",
-			row:         2,
-			seat_number: 1,
+			Sector:      "C",
+			Row:         2,
+			Seat_number: 1,
 		},
 		{
-			sector:      "C",
-			row:         2,
-			seat_number: 2,
+			Sector:      "C",
+			Row:         2,
+			Seat_number: 2,
 		},
 		{
-			sector:      "C",
-			row:         2,
-			seat_number: 3,
+			Sector:      "C",
+			Row:         2,
+			Seat_number: 3,
 		},
 	}
 }
@@ -118,18 +119,20 @@ func main() {
 	for _, ticket := range tickets {
 		found := false
 		for i, sector := range sectors {
-			if ticket.sector == sector.name {
+			if ticket.Sector == sector.Name {
 				found = true
-				sectors[i].tickets = append(sector.tickets, ticket)
+				sectors[i].Tickets = append(sector.Tickets, ticket)
 			}
 		}
 
 		if !found {
-			sectors = append(sectors, Sector{ticket.sector, []Ticket{ticket}})
+			sectors = append(sectors, Sector{ticket.Sector, []Ticket{ticket}})
 		}
 	}
 
-	fmt.Println(sectors)
+	j, _ := json.Marshal(sectors)
+
+	log.Println(string(j))
 
 	/*	if nameSector == "A" {
 			groupSector := sectors[0]
